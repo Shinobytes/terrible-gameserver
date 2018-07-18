@@ -29,9 +29,6 @@ namespace Shinobytes.Terrible.Serializers
         public Packet Deserialize(byte[] buffer, int offset, int size, WebSocketMessageType messageType, bool endOfMessage)
         {
             var json = System.Text.Encoding.UTF8.GetString(buffer, offset, size);
-
-
-
             try
             {
 
@@ -56,7 +53,7 @@ namespace Shinobytes.Terrible.Serializers
         {
             // only function to actually compress a packet to its final form
             var jsonData = System.Text.Encoding.UTF8.GetString(packet.Data, 0, packet.Size);
-            return System.Text.Encoding.UTF8.GetBytes($"{{header: \"{packet.Header}\", data: {jsonData}}}");
+            return System.Text.Encoding.UTF8.GetBytes($"{{\"header\": \"{packet.Header}\", \"data\": {jsonData}}}");
         }
     }
 }
