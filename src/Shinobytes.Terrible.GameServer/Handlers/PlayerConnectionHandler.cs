@@ -63,27 +63,32 @@ namespace Shinobytes.Terrible.Handlers
         {
             do
             {
-                await HandlePacketsAsync(userSession, socket); // fire and forget
+                if (!await HandlePacketsAsync(userSession, socket))
+                {
+                    await Task.Delay(1500);
+                }
 
             } while (!socket.Closed);
             game.PlayerConnectionClosed(userSession);
         }
 
-        private async Task HandlePacketsAsync(UserSession userSession, Connection socket)
+        private async Task<bool> HandlePacketsAsync(UserSession userSession, Connection socket)
         {
             try
-            {
+            {                
                 var result = await socket.ReceiveAsync();
                 if (result == null)
                 {
-                    return;
+                    return true;
                 }
 
                 await HandlePacketAsync(userSession, socket, result);
+                return true;
             }
             catch (Exception exc)
             {
                 logger.WriteError("Unhandled packet: " + exc.Message);
+                return false;
             }
         }
 

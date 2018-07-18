@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Numerics;
 using Shinobytes.Terrible.Models;
 
 namespace Shinobytes.Terrible.Repositories
@@ -55,12 +56,15 @@ namespace Shinobytes.Terrible.Repositories
                 return player;
             }
 
+            var random = new Random();
+
             return this.players[username.ToLower()] = new Player
             {
                 Id = this.players.Max(x => x.Value.Id) + 1,
                 Level = 1,
                 Username = username,
-                Created = DateTime.UtcNow
+                Created = DateTime.UtcNow,
+                Position = new Vector2(random.Next(600), random.Next(600))
             };
         }
     }
