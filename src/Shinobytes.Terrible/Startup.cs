@@ -46,10 +46,12 @@ namespace Shinobytes.Terrible
             services.AddSingleton<IConnectionProvider, ConnectionProvider>();
             services.AddSingleton<IPacketDataSerializer, JsonPacketDataSerializer>();
             services.AddSingleton<IPlayerPacketHandler, PlayerPacketHandler>();
+            
             //services.AddSingleton<Shinobytes.Core.ILogger, Shinobytes.Core.SyntaxHighlightedConsoleLogger>();
 
 
             services.AddSingleton<ILogger, ConsoleLogger>();
+            services.AddSingleton<IWorld, World>();
             services.AddSingleton<IGame, Game>();
 
             services.AddTransient<AuthMiddleware>();

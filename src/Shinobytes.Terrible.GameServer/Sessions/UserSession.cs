@@ -14,6 +14,7 @@ namespace Shinobytes.Terrible.Sessions
             Player = player;
             IsAdmin = isAdmin;
             Id = sessionId;
+            Player.Session = this;
         }
 
         public string Id { get; }
@@ -21,6 +22,8 @@ namespace Shinobytes.Terrible.Sessions
         public bool IsAdmin { get; }
 
         public Player Player { get; }
+
+        public bool Connected => this.connection != null && !this.connection.Closed;
 
         public void SetConnection(Connection connection)
         {

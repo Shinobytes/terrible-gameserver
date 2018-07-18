@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Shinobytes.Terrible.Engine.Updates;
 using Shinobytes.Terrible.Logging;
+using Shinobytes.Terrible.Managers;
 using Shinobytes.Terrible.Sessions;
 
 namespace Shinobytes.Terrible.Engine
@@ -10,15 +11,17 @@ namespace Shinobytes.Terrible.Engine
     public class Game : IGame
     {
         private readonly ILogger logger;
+        private readonly IWorld world;
 
         private readonly ConcurrentQueue<GameUpdate> updateQueue
             = new ConcurrentQueue<GameUpdate>();
 
         private Thread gameThread;
 
-        public Game(ILogger logger)
+        public Game(ILogger logger, IWorld world)
         {
             this.logger = logger;
+            this.world = world;
         }
 
         public void Begin()
@@ -62,6 +65,8 @@ namespace Shinobytes.Terrible.Engine
                 logger.WriteDebug($"Player '{userSession.Id}' is ready for some action!");
             }
 
+            this.world.Players.Add(userSession.Player);
+
             // register player handler
             EnqueueWorldUpdate(userSession);
         }
@@ -71,7 +76,9 @@ namespace Shinobytes.Terrible.Engine
             logger.WriteDebug($"Oh shoot! Player '{userSession.Id}' disconnected from server.");
             // unregister player handler
 
-            // todo: logout after 10 seconds of inactivity.
+            this.world.Players.Remove(userSession.Player);
+            
+            this.EnqueueWorldUpdate(userSession);
         }
 
         public void PlayerPing(UserSession userSession, DateTime timestamp, long pid)
@@ -92,7 +99,7 @@ namespace Shinobytes.Terrible.Engine
 
         private void EnqueueWorldUpdate(UserSession userSession)
         {
-            this.updateQueue.Enqueue(new WorldUpdate(userSession));
+            this.updateQueue.Enqueue(new WorldUpdate(world, userSession));
         }
     }
 }

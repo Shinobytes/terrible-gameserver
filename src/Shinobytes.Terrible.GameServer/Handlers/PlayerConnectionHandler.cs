@@ -11,7 +11,7 @@ namespace Shinobytes.Terrible.Handlers
 {
     public class PlayerConnectionHandler : IPlayerConnectionHandler
     {
-        private readonly IGame game;
+        private readonly IGame game;        
         private readonly IPlayerPacketHandler packetHandler;
         private readonly ILogger logger;
 
@@ -47,7 +47,7 @@ namespace Shinobytes.Terrible.Handlers
             {
                 await PlayerConnectionRead(userSession, socket);
             });
-            readThreads[userSession.Id].Start();
+            readThreads[userSession.Id].Start();            
         }
 
         private async Task PlayerConnectionWrite(UserSession userSession, Connection socket)

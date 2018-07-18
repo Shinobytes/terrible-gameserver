@@ -21,7 +21,7 @@ namespace Shinobytes.Terrible.Auth
             }
 
             // todo: hash-it!
-            if (player.Password.Equals(password))
+            if (player.Password == password)
             {
                 return player;
             }

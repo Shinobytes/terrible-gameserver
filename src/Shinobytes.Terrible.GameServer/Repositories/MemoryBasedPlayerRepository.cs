@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using Shinobytes.Terrible.Models;
 
 namespace Shinobytes.Terrible.Repositories
@@ -16,7 +17,6 @@ namespace Shinobytes.Terrible.Repositories
                 Id = 0,
                 IsAdmin = true,
                 Level = 1,
-                ViewRange = 2000,
                 Username = "Lichine",
                 Password = "password",
                 Created = DateTime.UtcNow
@@ -27,7 +27,6 @@ namespace Shinobytes.Terrible.Repositories
                 Id = 1,
                 IsAdmin = true,
                 Level = 1,
-                ViewRange = 2000,
                 Username = "Zerratar",
                 Password = "password",
                 Created = DateTime.UtcNow
@@ -38,7 +37,6 @@ namespace Shinobytes.Terrible.Repositories
                 Id = 2,
                 IsAdmin = false,
                 Level = 1,
-                ViewRange = 500,
                 Username = "User",
                 Password = "password",
                 Created = DateTime.UtcNow
@@ -57,7 +55,13 @@ namespace Shinobytes.Terrible.Repositories
                 return player;
             }
 
-            return null;
+            return this.players[username.ToLower()] = new Player
+            {
+                Id = this.players.Max(x => x.Value.Id) + 1,
+                Level = 1,
+                Username = username,
+                Created = DateTime.UtcNow
+            };
         }
     }
 }

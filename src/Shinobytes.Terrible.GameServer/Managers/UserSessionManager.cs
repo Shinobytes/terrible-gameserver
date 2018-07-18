@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Shinobytes.Terrible.Models;
 using Shinobytes.Terrible.Sessions;
 
@@ -9,6 +10,11 @@ namespace Shinobytes.Terrible.Managers
     {
         private readonly ConcurrentDictionary<string, UserSession> sessions
             = new ConcurrentDictionary<string, UserSession>();
+
+        public IReadOnlyList<UserSession> GetSessions()
+        {
+            return new List<UserSession>(sessions.Values);
+        }
 
         public bool TryGet(string token, out UserSession userSession)
         {
