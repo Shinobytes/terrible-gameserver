@@ -32,7 +32,7 @@ namespace Shinobytes.Terrible
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins", builder => builder.WithOrigins("http://localhost:8080", "*"));// builder.AllowAnyOrigin());
+                options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()); //builder.WithOrigins("http://localhost:8080", "*"));// builder.AllowAnyOrigin());
                 options.AddPolicy("AllowAllMethods", builder => builder.AllowAnyMethod());
                 options.AddPolicy("AllowAllHeaders", builder => builder.AllowAnyHeader());
             });

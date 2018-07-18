@@ -17,6 +17,7 @@ namespace Shinobytes.Terrible
                 //.UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseUrls("http://*:49672")
                 //.UseUrls("http://*:8080", "http://www.ABSOLUTELY-TERRIBLE.com", "http://ABSOLUTELY-TERRIBLE.com")
                 .Build();
         }
