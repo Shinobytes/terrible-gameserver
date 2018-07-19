@@ -28,12 +28,17 @@ namespace Shinobytes.Terrible.Models
 
         public ConcurrentQueue<Packet> SendQueue { get; }
 
-        public bool Closed => closed || this.socket.CloseStatus.HasValue;
+        public bool Closed => closed || this.socket.CloseStatus.HasValue 
+            || this.socket.State == WebSocketState.CloseSent
+            || this.socket.State == WebSocketState.Closed
+            || this.socket.State == WebSocketState.CloseReceived
+            || this.socket.State == WebSocketState.Aborted;        
 
         public TaskCompletionSource<object> KillTask { get; set; }
-
+        
         public async Task<T> ReceiveAsync<T>()
         {
+                
             var packet = await ReceiveAsync();
             if (packet != null)
             {

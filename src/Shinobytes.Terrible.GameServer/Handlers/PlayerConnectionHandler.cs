@@ -11,7 +11,7 @@ namespace Shinobytes.Terrible.Handlers
 {
     public class PlayerConnectionHandler : IPlayerConnectionHandler
     {
-        private readonly IGame game;        
+        private readonly IGame game;
         private readonly IPlayerPacketHandler packetHandler;
         private readonly ILogger logger;
 
@@ -47,7 +47,7 @@ namespace Shinobytes.Terrible.Handlers
             {
                 await PlayerConnectionRead(userSession, socket);
             });
-            readThreads[userSession.Id].Start();            
+            readThreads[userSession.Id].Start();
         }
 
         private async Task PlayerConnectionWrite(UserSession userSession, Connection socket)
@@ -63,11 +63,7 @@ namespace Shinobytes.Terrible.Handlers
         {
             do
             {
-                if (!await HandlePacketsAsync(userSession, socket))
-                {
-                    await Task.Delay(1500);
-                }
-
+                await HandlePacketsAsync(userSession, socket);
             } while (!socket.Closed);
             game.PlayerConnectionClosed(userSession);
         }
@@ -75,7 +71,7 @@ namespace Shinobytes.Terrible.Handlers
         private async Task<bool> HandlePacketsAsync(UserSession userSession, Connection socket)
         {
             try
-            {                
+            {
                 var result = await socket.ReceiveAsync();
                 if (result == null)
                 {
@@ -88,8 +84,12 @@ namespace Shinobytes.Terrible.Handlers
             catch (Exception exc)
             {
                 logger.WriteError("Unhandled packet: " + exc.Message);
-                return false;
+                if (socket.Closed)
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         private async Task ProcessSendQueueAsync(Connection socket)
