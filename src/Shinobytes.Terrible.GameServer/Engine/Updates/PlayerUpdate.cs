@@ -17,7 +17,8 @@ namespace Shinobytes.Terrible.Engine.Updates
                 Target.Player.Username,
                 Target.Player.Level,
                 Target.Player.Experience,
-                Target.Player.Position);
+                Target.Player.Position,
+                Target.Player.Appearance);
 
             Target.Send(playerInfo);
         }

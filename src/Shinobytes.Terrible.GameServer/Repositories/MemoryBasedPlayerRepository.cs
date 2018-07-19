@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Numerics;
 using Shinobytes.Terrible.Models;
+using Shinobytes.Terrible.Requests;
 
 namespace Shinobytes.Terrible.Repositories
 {
@@ -64,7 +65,8 @@ namespace Shinobytes.Terrible.Repositories
                 Level = 1,
                 Username = username,
                 Created = DateTime.UtcNow,
-                Position = new Vector2(random.Next(600), random.Next(600))
+                Position = new Vector2(random.Next(600), random.Next(600)),
+                Appearance = Appearance.Random()
             };
         }
     }

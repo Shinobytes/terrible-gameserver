@@ -1,4 +1,5 @@
 ﻿using System;
+using Shinobytes.Terrible.Requests;
 using Shinobytes.Terrible.Sessions;
 
 namespace Shinobytes.Terrible.Models
@@ -16,6 +17,8 @@ namespace Shinobytes.Terrible.Models
         public DateTime PositionChanged { get; set; }
         public DateTime LastLogin { get; set; }
         public DateTime Created { get; set; }
+
+        public Appearance Appearance { get; set; }
 
         public UserSession Session { get; set; }
     }

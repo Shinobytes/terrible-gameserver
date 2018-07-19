@@ -44,7 +44,8 @@ namespace Shinobytes.Terrible.Engine.Updates
                     Target.Player.Username,
                     Target.Player.Level,
                     Target.Player.Experience,
-                    Target.Player.Position);
+                    Target.Player.Position,
+                    Target.Player.Appearance);
 
                 Target.Send(playerInfo);
 
@@ -56,7 +57,8 @@ namespace Shinobytes.Terrible.Engine.Updates
                             x.Username,
                             x.Level,
                             x.Experience,
-                            x.Position))
+                            x.Position,
+                            x.Appearance))
                         .ToList();
 
                 if (otherPlayerInfos.Count > 0)
