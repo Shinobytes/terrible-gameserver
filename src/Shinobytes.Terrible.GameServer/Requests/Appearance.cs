@@ -15,9 +15,10 @@ namespace Shinobytes.Terrible.Requests
         public static Appearance Random()
         {
             Random ran = new Random();
+            var gender = ran.NextDouble() >= 0.5 ? 1 : 0;
             return new Appearance(
-                ran.NextDouble() >= 0.5 ? 1 : 0,
-                0,
+                gender,
+                (int)System.Math.Floor(ran.NextDouble() * (10D - gender)),
                 0,
                 0);
         }
