@@ -10,5 +10,6 @@ namespace Shinobytes.Terrible.Engine
         void PlayerConnectionEstablished(UserSession userSession);
         void PlayerConnectionClosed(UserSession userSession);
         void PlayerPing(UserSession userSession, DateTime origin, long pid);
+        void PlayerMoveTo(UserSession userSession, float worldX, float worldY);
     }
 }

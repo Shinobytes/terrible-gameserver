@@ -7,5 +7,5 @@ namespace Shinobytes.Terrible.Requests
         public long Id { get; set; }
         public DateTime Origin { get; set; }
         public DateTime Reply { get; set; }
-    }
+    }    
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Numerics;
 using System.Threading;
 using Shinobytes.Terrible.Engine.Updates;
 using Shinobytes.Terrible.Logging;
@@ -77,7 +78,7 @@ namespace Shinobytes.Terrible.Engine
             // unregister player handler
 
             this.world.Players.Remove(userSession.Player);
-            
+
             this.EnqueueWorldUpdate(userSession);
         }
 
@@ -85,6 +86,21 @@ namespace Shinobytes.Terrible.Engine
         {
             logger.WriteDebug($"Player '{userSession.Id}' ping with id: {pid}.");
             EnqueuePlayerPing(userSession, timestamp, pid);
+        }
+
+        public void PlayerMoveTo(UserSession userSession, float worldX, float worldY)
+        {
+            logger.WriteDebug($"Player '{userSession.Id}' move to: {worldX}, {worldY}.");
+            userSession.Player.Position = new Vector2(worldX, worldY);
+            userSession.Player.PositionChanged = DateTime.UtcNow;
+
+            EnqueuePlayerPositionUpdate(userSession);
+        }
+
+
+        private void EnqueuePlayerPositionUpdate(UserSession userSession)
+        {
+            this.updateQueue.Enqueue(new PlayerPositionUpdate(world, userSession));
         }
 
         private void EnqueuePlayerPing(UserSession userSession, DateTime timestamp, long pid)

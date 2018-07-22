@@ -16,10 +16,12 @@ namespace Shinobytes.Terrible.Requests
         {
             Random ran = new Random();
             var gender = ran.NextDouble() >= 0.5 ? 1 : 0;
+            var head = (int)System.Math.Floor(ran.NextDouble() * (10D - gender));
+            var hairColor = (int)System.Math.Floor(ran.NextDouble() * 7);
             return new Appearance(
                 gender,
-                (int)System.Math.Floor(ran.NextDouble() * (10D - gender)),
-                0,
+                head,
+                hairColor,
                 0);
         }
 

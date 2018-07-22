@@ -23,6 +23,11 @@ namespace Shinobytes.Terrible.Handlers
         {
             try
             {
+                if (packet.Is<PlayerMoveTo>(out var moveTo))
+                {
+                    this.game.PlayerMoveTo(userSession, moveTo.X, moveTo.Y);
+                }
+
                 if (packet.Is<PlayerKeepAlive>(out var ping))
                 {
                     this.game.PlayerPing(userSession, ping.Origin, ping.Id);

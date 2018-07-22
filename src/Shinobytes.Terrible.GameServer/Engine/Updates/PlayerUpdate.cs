@@ -1,4 +1,5 @@
-﻿using Shinobytes.Terrible.Sessions;
+﻿using Shinobytes.Terrible.Engine.Updates;
+using Shinobytes.Terrible.Sessions;
 
 namespace Shinobytes.Terrible.Engine.Updates
 {
